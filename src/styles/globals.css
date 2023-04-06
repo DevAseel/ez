@@ -5,3 +5,26 @@
 * {
   color: #fff;
 }
+
+input {
+  all: unset;
+}
+
+/* Reset scrollbar styles */
+::-webkit-scrollbar {
+  width: initial; /* Reset scrollbar width */
+  height: initial; /* Reset scrollbar height */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: initial; /* Reset scrollbar thumb color */
+  border: initial; /* Reset scrollbar thumb border */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: initial; /* Reset scrollbar thumb hover color */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: initial; /* Reset scrollbar thumb active color */
+}

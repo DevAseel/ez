@@ -49,6 +49,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    status        Status[]
+    points        Points[]
 }
 
 model VerificationToken {
@@ -57,4 +59,22 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Status {
+    id            String    @id @default(cuid())
+    userId        String
+    status        String
+    createdAt     DateTime  @default(now())
+    userName      String
+    user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Points {
+    id            String    @id @default(cuid())
+    userId        String    
+    createdAt     DateTime  @default(now())
+    userName      String
+    points        Int       @default(0)
+    user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
