@@ -79,3 +79,10 @@ model Points {
     points        Int       @default(0)
     user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+
+model Rewards {
+    id            String    @id @default(cuid())
+    reward        String    
+    points        Int 
+}

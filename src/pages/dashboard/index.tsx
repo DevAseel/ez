@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
@@ -20,6 +20,25 @@ const Dashboard = () => {
     }
   );
 
+  const { data: allRewards } = api.rewards.getAll.useQuery(
+    undefined, // no input
+    {
+      enabled: sessionData?.user !== undefined,
+    }
+  );
+
+  const { data: pointsData } = api.points.getLatest.useQuery(
+    undefined, // no input
+    {
+      enabled: sessionData?.user !== undefined,
+    }
+  );
+  const [haki, setHaki] = useState(0);
+  useEffect(() => {
+    if (pointsData?.points) setHaki(Math.round(pointsData?.points * 0.1));
+  }, [pointsData]);
+
+  console.log(haki);
   return (
     <>
       <Head>
@@ -116,65 +135,40 @@ const Dashboard = () => {
                             Reward
                           </th>
                           <th scope="col" className="px-6 py-3">
-                            Points
+                            Haki
                           </th>
-                          <th scope="col" className="px-6 py-3">
-                            Claim
-                          </th>
+                          <th scope="col" className="px-6 py-3"></th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr className="border-t-[1px] border-gray-500 ">
-                          <td
-                            scope="row"
-                            className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                        {allRewards?.map((reward) => (
+                          <tr
+                            key={reward.id}
+                            className="border-t-[1px] border-gray-500 "
                           >
-                            Coffee from starbucks!
-                          </td>
-                          <td scope="row" className="px-6 py-3">
-                            100
-                          </td>
+                            <td
+                              scope="row"
+                              className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                            >
+                              {reward.reward}
+                            </td>
+                            <td scope="row" className="px-6 py-3">
+                              {reward.points}
+                            </td>
 
-                          <td scope="row" className="px-6 py-3">
-                            <button className="rounded-md bg-red-500 p-1 text-[0.75rem]">
-                              Claim
-                            </button>
-                          </td>
-                        </tr>
-                        <tr className="border-t-[1px] border-gray-500 ">
-                          <td
-                            scope="row"
-                            className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                          >
-                            Coffee from starbucks!
-                          </td>
-                          <td scope="row" className="px-6 py-3">
-                            100
-                          </td>
-
-                          <td scope="row" className="px-6 py-3">
-                            <button className="rounded-md bg-red-500 p-1 text-[0.75rem]">
-                              Claim
-                            </button>
-                          </td>
-                        </tr>
-                        <tr className="border-t-[1px] border-gray-500 ">
-                          <td
-                            scope="row"
-                            className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
-                          >
-                            Coffee from starbucks!
-                          </td>
-                          <td scope="row" className="px-6 py-3">
-                            100
-                          </td>
-
-                          <td scope="row" className="px-6 py-3">
-                            <button className="rounded-md bg-red-500 p-1 text-[0.75rem]">
-                              Claim
-                            </button>
-                          </td>
-                        </tr>
+                            <td scope="row" className="px-6 py-3">
+                              {haki >= reward.points && (
+                                <button
+                                  className={
+                                    "cursor-pointer rounded-md bg-red-500 p-1 text-[0.75rem]"
+                                  }
+                                >
+                                  Claim
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>

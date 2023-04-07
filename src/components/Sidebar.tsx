@@ -97,6 +97,12 @@ const Sidebar = () => {
             >
               Share new status!
             </button>
+            <p className="pt-4 text-sm font-bold">
+              Haki:
+              <span className="text-red-500">
+                {pointsData?.points && Math.round(pointsData.points * 0.1)}
+              </span>
+            </p>
           </div>
         </div>
       </div>
