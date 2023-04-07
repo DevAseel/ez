@@ -1,67 +1,29 @@
 import Image from "next/image";
 import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
-import type { FormEvent, ChangeEvent } from "react";
+import React from "react";
+import type { MouseEventHandler } from "react";
+import type { Points, Status } from "@prisma/client";
 
-const Sidebar = () => {
+type SidebarProps = {
+  pointsData: Points | null | undefined;
+  handleSubmit: React.FormEventHandler<HTMLFormElement> | undefined;
+  handleChange: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  statusPopUp: boolean;
+  updateStatusPopUp: MouseEventHandler<HTMLButtonElement> | undefined;
+  statusData: Status | null | undefined;
+};
+
+const Sidebar = ({
+  pointsData,
+  handleSubmit,
+  statusPopUp,
+  updateStatusPopUp,
+  handleChange,
+  statusData,
+}: SidebarProps) => {
   const { data: sessionData } = useSession();
 
-  // trpc calls
-  const { data: statusData, refetch: refetchStatus } =
-    api.status.getLatest.useQuery(undefined, {
-      enabled: sessionData?.user !== undefined,
-    });
-
-  const { data: pointsData, refetch: refetchPoints } =
-    api.points.getLatest.useQuery(undefined, {
-      enabled: sessionData?.user !== undefined,
-    });
-
-  //   states
-  const [statusPopUp, setStatuPopUp] = useState(false);
-  const [userStatus, setUserStatus] = useState("");
-
-  // mutation
-  const postStatus = api.status.addNew.useMutation({
-    onSuccess: () => refetchStatus(),
-  });
-  const postPoints = api.points.addNew.useMutation({
-    onSuccess: () => refetchPoints(),
-  });
-
-  // handlers
-  const updateStatusPopUp = () => {
-    setStatuPopUp(!statusPopUp);
-  };
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setUserStatus(event.currentTarget.value);
-  };
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (userStatus.length !== 0 && sessionData?.user.name) {
-      postStatus.mutate({
-        status: userStatus,
-        userName: sessionData.user.name,
-      });
-
-      if (!pointsData?.points) {
-        postPoints.mutate({
-          points: 1,
-          userName: sessionData.user.name,
-        });
-      } else {
-        postPoints.mutate({
-          points: pointsData?.points + 1,
-          userName: sessionData.user.name,
-        });
-      }
-
-      setStatuPopUp(!statusPopUp);
-    }
-  };
   return (
     <>
       <div className=" m-2 flex h-full w-3/12 items-start justify-center rounded bg-slate-800 pt-8">
@@ -112,12 +74,12 @@ const Sidebar = () => {
       </div>
       {statusPopUp && (
         <div className="absolute w-1/4 rounded bg-slate-600 p-8 transition delay-700 ease-in-out">
-          <div
+          <button
             onClick={updateStatusPopUp}
             className="absolute right-4 top-2 cursor-pointer text-sm text-slate-800"
           >
             x
-          </div>
+          </button>
           <form
             action=""
             className="flex w-full items-center justify-center"

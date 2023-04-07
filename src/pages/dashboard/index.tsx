@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import type { FormEvent, ChangeEvent } from "react";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
@@ -11,25 +12,75 @@ import Image from "next/image";
 const Dashboard = () => {
   const { data: sessionData } = useSession();
   // trpc calls
-  const { data: allStatus } = api.status.getAll.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
-  const { data: allPoints } = api.points.getAll.useQuery(
-    undefined, // no input
-    {
+  const { data: allStatus, refetch: refetchAllStatus } =
+    api.status.getAll.useQuery(undefined, {
       enabled: sessionData?.user !== undefined,
-    }
-  );
+    });
 
-  const { data: pointsData } = api.points.getLatest.useQuery(
-    undefined, // no input
-    {
+  const { data: allPoints, refetch: refetchAllPoints } =
+    api.points.getAll.useQuery(undefined, {
       enabled: sessionData?.user !== undefined,
-    }
-  );
+    });
+
+  const { data: pointsData, refetch: refetchPoints } =
+    api.points.getLatest.useQuery(undefined, {
+      enabled: sessionData?.user !== undefined,
+    });
+
+  const { data: statusData, refetch: refetchStatus } =
+    api.status.getLatest.useQuery(undefined, {
+      enabled: sessionData?.user !== undefined,
+    });
+
+  // mutation
+  const postStatus = api.status.addNew.useMutation({
+    onSuccess: async () => {
+      await refetchStatus(), await refetchAllStatus();
+    },
+  });
+  const postPoints = api.points.addNew.useMutation({
+    onSuccess: async () => {
+      await refetchPoints(), await refetchAllPoints();
+    },
+  });
+  // states
+  const [userStatus, setUserStatus] = useState("");
+  const [statusPopUp, setStatuPopUp] = useState(false);
   const [haki, setHaki] = useState(0);
+  // handlers
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (userStatus.length !== 0 && sessionData?.user.name) {
+      postStatus.mutate({
+        status: userStatus,
+        userName: sessionData.user.name,
+      });
+
+      if (!pointsData?.points) {
+        postPoints.mutate({
+          points: 1,
+          userName: sessionData.user.name,
+        });
+      } else {
+        postPoints.mutate({
+          points: pointsData?.points + 1,
+          userName: sessionData.user.name,
+        });
+      }
+
+      setStatuPopUp(!statusPopUp);
+    }
+  };
+
+  const updateStatusPopUp = () => {
+    setStatuPopUp(!statusPopUp);
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setUserStatus(event.currentTarget.value);
+  };
+
+  // rendering
   useEffect(() => {
     if (pointsData?.points) setHaki(Math.round(pointsData?.points * 0.1));
   }, [pointsData]);
@@ -44,7 +95,14 @@ const Dashboard = () => {
       <section className="relative flex h-screen w-screen items-center justify-center bg-slate-900">
         <div className="flex h-5/6 w-8/12 items-center justify-center">
           {/* here */}
-          <Sidebar />
+          <Sidebar
+            pointsData={pointsData}
+            handleSubmit={handleSubmit}
+            statusPopUp={statusPopUp}
+            updateStatusPopUp={updateStatusPopUp}
+            handleChange={handleChange}
+            statusData={statusData}
+          />
           <div className=" m-2 flex h-full w-9/12 items-center justify-center rounded bg-slate-800 p-12">
             <div className="h-full w-1/2">
               <p className="mb-2 text-xl font-bold">Status updates</p>
