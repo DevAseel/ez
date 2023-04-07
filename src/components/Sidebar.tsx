@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { api } from "~/utils/api";
 import { useSession } from "next-auth/react";
 import React from "react";
 import type { MouseEventHandler } from "react";

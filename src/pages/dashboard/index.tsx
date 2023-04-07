@@ -3,11 +3,10 @@ import type { FormEvent, ChangeEvent } from "react";
 import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
-import Sidebar from "../../components/Sidebar";
-import Rewards from "../../components/Rewards";
+import Sidebar from "~/components/Sidebar";
+import Rewards from "~/components/Rewards";
 import Leaderboard from "~/components/Leaderboard";
-
-import Image from "next/image";
+import StatusUpdates from "~/components/StatusUpdates";
 
 const Dashboard = () => {
   const { data: sessionData } = useSession();
@@ -94,7 +93,6 @@ const Dashboard = () => {
       </Head>
       <section className="relative flex h-screen w-screen items-center justify-center bg-slate-900">
         <div className="flex h-5/6 w-8/12 items-center justify-center">
-          {/* here */}
           <Sidebar
             pointsData={pointsData}
             handleSubmit={handleSubmit}
@@ -104,35 +102,7 @@ const Dashboard = () => {
             statusData={statusData}
           />
           <div className=" m-2 flex h-full w-9/12 items-center justify-center rounded bg-slate-800 p-12">
-            <div className="h-full w-1/2">
-              <p className="mb-2 text-xl font-bold">Status updates</p>
-              <div className="h-full w-full overflow-auto">
-                {allStatus?.map((status, index) => (
-                  <div key={index} className="mb-2 rounded bg-slate-700 p-2">
-                    <div className="flex w-full items-center justify-around">
-                      {status.image && (
-                        <Image
-                          src={status.image}
-                          alt="user profile image"
-                          width="50"
-                          height="50"
-                          className="rounded-full"
-                        />
-                      )}
-                      <div className="w-full pl-2">
-                        <p className="text-base text-red-500">
-                          {status.userName}
-                        </p>
-                        <p className="pb-2 text-sm">{status.status}</p>
-                        <p className="text-right text-[0.75rem] text-slate-400">
-                          {status.createdAt.toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <StatusUpdates allStatus={allStatus} />
             <div className="flex h-full w-1/2 flex-col">
               <Leaderboard allPoints={allPoints} />
               <Rewards haki={haki} />
