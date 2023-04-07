@@ -14,10 +14,18 @@ const Sidebar = () => {
       enabled: sessionData?.user !== undefined,
     }
   );
+
+  const { data: pointsData } = api.points.getLatest.useQuery(
+    undefined, // no input
+    {
+      enabled: sessionData?.user !== undefined,
+    }
+  );
   //   states
   const [statusPopUp, setStatuPopUp] = useState(false);
   const [userStatus, setUserStatus] = useState("false");
   const postStatus = api.status.addNew.useMutation();
+  const postPoints = api.points.addNew.useMutation();
 
   const updateStatusPopUp = () => {
     setStatuPopUp(!statusPopUp);
@@ -34,6 +42,19 @@ const Sidebar = () => {
         status: userStatus,
         userName: sessionData.user.name,
       });
+
+      if (!pointsData?.points) {
+        postPoints.mutate({
+          points: 1,
+          userName: sessionData.user.name,
+        });
+      } else {
+        postPoints.mutate({
+          points: pointsData?.points + 1,
+          userName: sessionData.user.name,
+        });
+      }
+
       setStatuPopUp(!statusPopUp);
     }
   };

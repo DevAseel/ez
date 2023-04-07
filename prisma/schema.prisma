@@ -67,6 +67,7 @@ model Status {
     status        String
     createdAt     DateTime  @default(now())
     userName      String
+    image         String?
     user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

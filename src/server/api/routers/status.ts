@@ -23,6 +23,7 @@ export const statusRouter = createTRPCRouter({
             userId: ctx.session.user.id,
             status: input.status,
             userName: input.userName,
+            image: ctx.session.user.image,
           },
         });
       } catch (error) {
@@ -32,7 +33,10 @@ export const statusRouter = createTRPCRouter({
 
   getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.status.findMany({
-      take: 5,
+      take: 10,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }),
 });

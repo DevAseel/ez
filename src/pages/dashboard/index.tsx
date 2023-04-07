@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import Sidebar from "../../components/Sidebar";
+import Image from "next/image";
 
 const Dashboard = () => {
   const { data: sessionData } = useSession();
@@ -10,6 +11,13 @@ const Dashboard = () => {
   const { data: allStatus } = api.status.getAll.useQuery(
     undefined, // no input
     { enabled: sessionData?.user !== undefined }
+  );
+
+  const { data: allPoints } = api.points.getAll.useQuery(
+    undefined, // no input
+    {
+      enabled: sessionData?.user !== undefined,
+    }
   );
 
   return (
@@ -25,22 +33,153 @@ const Dashboard = () => {
           <Sidebar />
           <div className=" m-2 flex h-full w-9/12 items-center justify-center rounded bg-slate-800 p-12">
             <div className="h-full w-1/2">
-              <div className="w-full">
-                <p className="text-2xl">Status updates:</p>
+              <p className="mb-2 text-xl font-bold">Status updates</p>
+              <div className="h-full w-full overflow-auto">
                 {allStatus?.map((status, index) => (
-                  <div key={index} className="my-2 rounded bg-slate-700 p-2">
-                    <p className="text-base text-red-500">{status.userName}</p>
-                    <p className="py-2 text-sm">{status.status}</p>
-                    <p className="text-sm text-slate-400">
-                      {status.createdAt.toTimeString()}
-                    </p>
+                  <div key={index} className="mb-2 rounded bg-slate-700 p-2">
+                    <div className="flex w-full items-center justify-around">
+                      {status.image && (
+                        <Image
+                          src={status.image}
+                          alt="user profile image"
+                          width="50"
+                          height="50"
+                          className="rounded-full"
+                        />
+                      )}
+                      <div className="w-full pl-2">
+                        <p className="text-base text-red-500">
+                          {status.userName}
+                        </p>
+                        <p className="pb-2 text-sm">{status.status}</p>
+                        <p className="text-right text-[0.75rem] text-slate-400">
+                          {status.createdAt.toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
-              <div className="w-full">rewards</div>
             </div>
-            <div className="h-full w-1/2">
-              <div className="">leaderboard</div>
+            <div className="flex h-full w-1/2 flex-col">
+              <div className="ml-2 h-1/2">
+                <p className="mb-2 text-xl font-bold">Leaderboard</p>
+                <div className="h-full rounded-md bg-slate-700">
+                  <div className="">
+                    <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+                      <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                          <th scope="col" className="px-6 py-3">
+                            #
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            User
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            Points
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {allPoints?.map((user, index) => (
+                          <tr
+                            key={index}
+                            className="border-t-[1px] border-gray-500 "
+                          >
+                            <td scope="row" className="px-6 py-3">
+                              {index + 1}
+                            </td>
+                            <td
+                              scope="row"
+                              className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                            >
+                              {user.userName}
+                            </td>
+                            <td scope="row" className="px-6 py-3">
+                              {user.points}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div className="ml-2 h-1/2 pt-12">
+                <div className="text-xl font-bold">Rewards</div>
+                <div className="h-full rounded-md bg-slate-700">
+                  <div className="">
+                    <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+                      <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                          <th scope="col" className="px-6 py-3">
+                            Reward
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            Points
+                          </th>
+                          <th scope="col" className="px-6 py-3">
+                            Claim
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-t-[1px] border-gray-500 ">
+                          <td
+                            scope="row"
+                            className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                          >
+                            Coffee from starbucks!
+                          </td>
+                          <td scope="row" className="px-6 py-3">
+                            100
+                          </td>
+
+                          <td scope="row" className="px-6 py-3">
+                            <button className="rounded-md bg-red-500 p-1 text-[0.75rem]">
+                              Claim
+                            </button>
+                          </td>
+                        </tr>
+                        <tr className="border-t-[1px] border-gray-500 ">
+                          <td
+                            scope="row"
+                            className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                          >
+                            Coffee from starbucks!
+                          </td>
+                          <td scope="row" className="px-6 py-3">
+                            100
+                          </td>
+
+                          <td scope="row" className="px-6 py-3">
+                            <button className="rounded-md bg-red-500 p-1 text-[0.75rem]">
+                              Claim
+                            </button>
+                          </td>
+                        </tr>
+                        <tr className="border-t-[1px] border-gray-500 ">
+                          <td
+                            scope="row"
+                            className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
+                          >
+                            Coffee from starbucks!
+                          </td>
+                          <td scope="row" className="px-6 py-3">
+                            100
+                          </td>
+
+                          <td scope="row" className="px-6 py-3">
+                            <button className="rounded-md bg-red-500 p-1 text-[0.75rem]">
+                              Claim
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

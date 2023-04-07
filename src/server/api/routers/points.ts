@@ -31,6 +31,11 @@ export const pointsRouter = createTRPCRouter({
     }),
 
   getAll: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.points.findMany();
+    return ctx.prisma.points.findMany({
+      distinct: ["userId"],
+      orderBy: {
+        points: "desc",
+      },
+    });
   }),
 });
