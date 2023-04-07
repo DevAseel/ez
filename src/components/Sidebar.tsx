@@ -8,25 +8,29 @@ const Sidebar = () => {
   const { data: sessionData } = useSession();
 
   // trpc calls
-  const { data: statusData } = api.status.getLatest.useQuery(
-    undefined, // no input
-    {
+  const { data: statusData, refetch: refetchStatus } =
+    api.status.getLatest.useQuery(undefined, {
       enabled: sessionData?.user !== undefined,
-    }
-  );
+    });
 
-  const { data: pointsData } = api.points.getLatest.useQuery(
-    undefined, // no input
-    {
+  const { data: pointsData, refetch: refetchPoints } =
+    api.points.getLatest.useQuery(undefined, {
       enabled: sessionData?.user !== undefined,
-    }
-  );
+    });
+
   //   states
   const [statusPopUp, setStatuPopUp] = useState(false);
-  const [userStatus, setUserStatus] = useState("false");
-  const postStatus = api.status.addNew.useMutation();
-  const postPoints = api.points.addNew.useMutation();
+  const [userStatus, setUserStatus] = useState("");
 
+  // mutation
+  const postStatus = api.status.addNew.useMutation({
+    onSuccess: () => refetchStatus(),
+  });
+  const postPoints = api.points.addNew.useMutation({
+    onSuccess: () => refetchPoints(),
+  });
+
+  // handlers
   const updateStatusPopUp = () => {
     setStatuPopUp(!statusPopUp);
   };
