@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import type { FormEvent, ChangeEvent } from "react";
 import Head from "next/head";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import Sidebar from "~/components/Sidebar";
 import Rewards from "~/components/Rewards";
 import Leaderboard from "~/components/Leaderboard";
 import StatusUpdates from "~/components/StatusUpdates";
+import type { GetSessionParams } from "next-auth/react";
 
 const Dashboard = () => {
   const { data: sessionData } = useSession();
@@ -114,4 +115,20 @@ const Dashboard = () => {
   );
 };
 
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+}
 export default Dashboard;
