@@ -105,6 +105,7 @@ const Dashboard = () => {
     if (pointsData?.points) setHaki(Math.round(pointsData?.points * 0.1));
   }, [pointsData]);
 
+  console.log(sessionData);
   return (
     <>
       <Head>
