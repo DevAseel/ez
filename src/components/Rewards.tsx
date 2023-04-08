@@ -1,18 +1,12 @@
 import React from "react";
-import { api } from "~/utils/api";
-import { useSession } from "next-auth/react";
+import { Rewards } from "@prisma/client";
 
 type RewardsParams = {
   haki: number;
+  allRewards: Rewards[] | undefined;
 };
 
-const Rewards = ({ haki }: RewardsParams) => {
-  const { data: sessionData } = useSession();
-
-  const { data: allRewards } = api.rewards.getAll.useQuery(undefined, {
-    enabled: sessionData?.user !== undefined,
-  });
-
+const Rewards = ({ haki, allRewards }: RewardsParams) => {
   return (
     <div className="ml-2 h-1/2 pt-12">
       <div className="text-xl font-bold">Rewards</div>
