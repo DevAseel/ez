@@ -29,7 +29,7 @@ const AuthShowcase: React.FC = () => {
         onClick={
           sessionData
             ? () => void signOut()
-            : () => void signIn("GitHub", { callbackUrl: "/dashboard" })
+            : () => void signIn("GitHub", { callbackUrl: "/zone" })
         }
       >
         {sessionData ? "Sign out" : "Sign in"}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Stack, Heading } from "@chakra-ui/react";
 import UserHero from "~/components/UserHero";
 import { api } from "~/utils/api";
 import { getSession, useSession } from "next-auth/react";
 import LeaderboardTable from "~/components/LeaderboardTable";
 import Awards from "~/components/Awards";
 import Head from "next/head";
+import type { GetSessionParams } from "next-auth/react";
 
 const Zone = () => {
   const { data: sessionData } = useSession();
@@ -88,7 +89,13 @@ const Zone = () => {
               rowSpan={1}
               colSpan={1}
               borderRadius="md"
-            />
+            >
+              <Stack spacing={6}>
+                <Heading as="h1" size="xl" pl="4" pt="1 " noOfLines={1}>
+                  Feed ✨
+                </Heading>
+              </Stack>
+            </GridItem>
             <GridItem
               w="100%"
               h="100%"
@@ -106,7 +113,13 @@ const Zone = () => {
               rowSpan={1}
               colSpan={1}
               borderRadius="md"
-            />
+            >
+              <Stack spacing={6}>
+                <Heading as="h1" size="xl" pl="4" pt="1 " noOfLines={1}>
+                  Status Updates 🔥
+                </Heading>
+              </Stack>
+            </GridItem>
             <GridItem
               w="100%"
               h="100%"
@@ -126,5 +139,22 @@ const Zone = () => {
     </>
   );
 };
+
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+}
 
 export default Zone;
