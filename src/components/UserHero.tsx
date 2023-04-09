@@ -29,7 +29,7 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
         </Avatar>
         <Stack direction="column" minW="8rem">
           <Text fontSize="sm" fontWeight="bold">
-            Aseel Al Rawahi
+            {sessionData?.user.name}
           </Text>
           <Badge
             bg="#1A202C"
