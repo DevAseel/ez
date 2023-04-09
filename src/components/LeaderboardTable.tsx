@@ -1,12 +1,6 @@
 import React from "react";
 import { Table, Thead, Tbody, Tr, Th, Stack } from "@chakra-ui/react";
-import {
-  Td,
-  TableCaption,
-  TableContainer,
-  Heading,
-  Skeleton,
-} from "@chakra-ui/react";
+import { Td, TableCaption, TableContainer, Heading } from "@chakra-ui/react";
 import type { Points } from "@prisma/client";
 
 type LeaderboardTable = {
@@ -16,7 +10,7 @@ type LeaderboardTable = {
 const LeaderboardTable = ({ allPoints }: LeaderboardTable) => {
   return (
     <Stack spacing={6}>
-      <Heading as="h1" size="xl" pl="4" py="1 " noOfLines={1}>
+      <Heading as="h1" size="xl" pl="4" py="1" noOfLines={1}>
         Leaderboard 🚀
       </Heading>
       <TableContainer>

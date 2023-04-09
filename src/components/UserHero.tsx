@@ -9,9 +9,10 @@ import { useSession } from "next-auth/react";
 type UserHeroProps = {
   pointsData: Points | null | undefined;
   statusData: Status | null | undefined;
+  haki: number;
 };
 
-const UserHero = ({ pointsData, statusData }: UserHeroProps) => {
+const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
   const { data: sessionData } = useSession();
   return (
     <>
@@ -62,7 +63,7 @@ const UserHero = ({ pointsData, statusData }: UserHeroProps) => {
               colorScheme="white"
               textAlign="center"
             >
-              14
+              {haki}
             </Badge>
             <Tooltip hasArrow label={statusData?.status} fontSize="xs">
               <Badge

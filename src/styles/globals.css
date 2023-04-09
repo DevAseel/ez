@@ -6,6 +6,9 @@
   color: #fff;
 }
 
+body {
+  background-color: #171923;
+}
 input {
   all: unset;
 }

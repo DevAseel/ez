@@ -77,8 +77,9 @@ model Points {
 }
 
 
-model Rewards {
+model Awards {
     id            String    @id @default(cuid())
-    reward        String    
-    points        Int 
+    award         String    
+    emoji         String
+    karma         Int 
 }

@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 import UserHero from "~/components/UserHero";
 import { api } from "~/utils/api";
 import { getSession, useSession } from "next-auth/react";
 import LeaderboardTable from "~/components/LeaderboardTable";
+import Awards from "~/components/Awards";
 import Head from "next/head";
 
 const Zone = () => {
   const { data: sessionData } = useSession();
 
+  const { data: allAwards, isLoading: isAllAwardsLoading } =
+    api.awards.getAll.useQuery(undefined, {
+      enabled: sessionData?.user !== undefined,
+    });
   const {
     data: allPoints,
     refetch: refetchAllPoints,
@@ -33,6 +38,12 @@ const Zone = () => {
     enabled: sessionData?.user !== undefined,
   });
 
+  const [haki, setHaki] = useState(0);
+
+  useEffect(() => {
+    if (pointsData?.points) setHaki(Math.round(pointsData?.points * 0.1));
+  }, [pointsData]);
+
   return (
     <>
       <Head>
@@ -56,7 +67,11 @@ const Zone = () => {
           Header
         </GridItem>
         <GridItem bg="#171923" rowSpan={12} colSpan={1} w="100%">
-          <UserHero pointsData={pointsData} statusData={statusData} />
+          <UserHero
+            pointsData={pointsData}
+            statusData={statusData}
+            haki={haki}
+          />
         </GridItem>
         <GridItem rowSpan={10} colSpan={4}>
           <Grid
@@ -69,7 +84,7 @@ const Zone = () => {
             <GridItem
               w="100%"
               h="100%"
-              bg="blue.500"
+              bg="teal.800"
               rowSpan={1}
               colSpan={1}
               borderRadius="md"
@@ -87,7 +102,7 @@ const Zone = () => {
             <GridItem
               w="100%"
               h="100%"
-              bg="blue.500"
+              bg="#171923"
               rowSpan={1}
               colSpan={1}
               borderRadius="md"
@@ -95,11 +110,13 @@ const Zone = () => {
             <GridItem
               w="100%"
               h="100%"
-              bg="blue.500"
+              bg="teal.800"
               rowSpan={1}
               colSpan={1}
               borderRadius="md"
-            />
+            >
+              <Awards haki={haki} allAwards={allAwards} />
+            </GridItem>
           </Grid>
         </GridItem>
         <GridItem pl="2" rowSpan={1} colSpan={1}>

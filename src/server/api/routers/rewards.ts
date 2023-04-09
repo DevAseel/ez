@@ -1,13 +1,11 @@
-import { z } from "zod";
-
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
 
-export const rewardsRouter = createTRPCRouter({
+export const awardsRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
-    return ctx.prisma.rewards.findMany({
-      take: 5,
+    return ctx.prisma.awards.findMany({
+      take: 3,
       orderBy: {
-        points: "asc",
+        karma: "asc",
       },
     });
   }),

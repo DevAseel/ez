@@ -45,8 +45,8 @@ const Dashboard = () => {
     enabled: sessionData?.user !== undefined,
   });
 
-  const { data: allRewards, isLoading: isAllRewardsLoading } =
-    api.rewards.getAll.useQuery(undefined, {
+  const { data: allAwards, isLoading: isAllAwardsLoading } =
+    api.awards.getAll.useQuery(undefined, {
       enabled: sessionData?.user !== undefined,
     });
 
@@ -116,7 +116,7 @@ const Dashboard = () => {
       {isAllStatusLoading ||
       isAllPointsLoading ||
       isPointsLoading ||
-      isAllRewardsLoading ||
+      isAllAwardsLoading ||
       isStatusLoading ? (
         <Loading />
       ) : (
@@ -134,7 +134,7 @@ const Dashboard = () => {
               <StatusUpdates allStatus={allStatus} />
               <div className="flex h-full w-1/2 flex-col">
                 <Leaderboard allPoints={allPoints} />
-                <Rewards haki={haki} allRewards={allRewards} />
+                <Rewards haki={haki} allAwards={allAwards} />
               </div>
             </div>
           </div>

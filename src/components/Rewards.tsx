@@ -1,12 +1,12 @@
 import React from "react";
-import { Rewards } from "@prisma/client";
+import { type Awards } from "@prisma/client";
 
 type RewardsParams = {
   haki: number;
-  allRewards: Rewards[] | undefined;
+  allAwards: Awards[] | undefined;
 };
 
-const Rewards = ({ haki, allRewards }: RewardsParams) => {
+const Rewards = ({ haki, allAwards }: RewardsParams) => {
   return (
     <div className="ml-2 h-1/2 pt-12">
       <div className="text-xl font-bold">Rewards</div>
@@ -25,20 +25,20 @@ const Rewards = ({ haki, allRewards }: RewardsParams) => {
               </tr>
             </thead>
             <tbody>
-              {allRewards?.map((reward) => (
-                <tr key={reward.id} className="border-t-[1px] border-gray-500 ">
+              {allAwards?.map((award) => (
+                <tr key={award.id} className="border-t-[1px] border-gray-500 ">
                   <td
                     scope="row"
                     className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
                   >
-                    {reward.reward}
+                    {award.award}
                   </td>
                   <td scope="row" className="px-6 py-3">
-                    {reward.points}
+                    {award.karma}
                   </td>
 
                   <td scope="row" className="px-6 py-3">
-                    {haki >= reward.points && (
+                    {haki >= award.karma && (
                       <button
                         className={
                           "cursor-pointer rounded-md bg-red-500 p-1 text-[0.75rem]"
