@@ -6,12 +6,12 @@ import WhatshotIcon from "@mui/icons-material/Whatshot";
 import type { Points, Status } from "@prisma/client";
 import { useSession } from "next-auth/react";
 
-type SidebarProps = {
+type UserHeroProps = {
   pointsData: Points | null | undefined;
   statusData: Status | null | undefined;
 };
 
-const UserHero = ({ pointsData, statusData }: SidebarProps) => {
+const UserHero = ({ pointsData, statusData }: UserHeroProps) => {
   const { data: sessionData } = useSession();
   return (
     <>
