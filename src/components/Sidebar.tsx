@@ -26,29 +26,34 @@ const Sidebar = ({
   return (
     <>
       <div className=" m-2 flex h-full w-3/12 items-start justify-center rounded bg-slate-800 pt-8">
-        <div className="flex  w-8/12 flex-col items-center justify-between">
-          <div className="">
-            {sessionData?.user.image ? (
-              <Image
-                src={sessionData?.user.image}
-                alt="user profile image"
-                width="75"
-                height="75"
-                className="rounded-full"
-              />
-            ) : (
-              <Image
-                src="https://cdn.discordapp.com/embed/avatars/1.png"
-                alt="user profile image"
-                width="75"
-                height="75"
-              />
-            )}
+        <div className="flex w-8/12 flex-col items-center justify-between">
+          <div className="flex items-start justify-start">
+            <div className="">
+              {sessionData?.user.image ? (
+                <Image
+                  src={sessionData?.user.image}
+                  alt="user profile image"
+                  width="45"
+                  height="45"
+                  className="rounded"
+                />
+              ) : (
+                <Image
+                  src="https://cdn.discordapp.com/embed/avatars/1.png"
+                  alt="user profile image"
+                  width="45"
+                  height="45"
+                  className="rounded"
+                />
+              )}
+            </div>
+            <div className="flex items-center justify-center pl-2">
+              <p className="text-center text-base font-bold capitalize text-gray-200">
+                {sessionData?.user.name}
+              </p>
+            </div>
           </div>
           <div className="flex h-full w-full flex-col items-center justify-center pt-2">
-            <p className="text-center text-2xl text-red-500">
-              {sessionData?.user.name}
-            </p>
             {statusData?.status ? (
               <p className="pt-4 text-sm">&quot;{statusData?.status}&quot;</p>
             ) : (

@@ -121,7 +121,7 @@ const Dashboard = () => {
         <Loading />
       ) : (
         <section className="relative flex h-screen w-screen items-center justify-center bg-slate-900">
-          <div className="flex h-5/6 w-8/12 items-center justify-center">
+          <div className="flex h-full w-full items-center justify-center py-2">
             <Sidebar
               pointsData={pointsData}
               handleSubmit={handleSubmit}
