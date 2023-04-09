@@ -17,7 +17,7 @@ const Awards = ({ allAwards, haki }: AwardsParams) => {
       </Heading>
       <SimpleGrid
         spacing={4}
-        templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
+        templateColumns="repeat(auto-fill, minmax(150px, 1fr))"
         padding="4"
       >
         {allAwards?.map((award) => (
@@ -37,9 +37,10 @@ const Awards = ({ allAwards, haki }: AwardsParams) => {
               ) : (
                 <Tooltip
                   label={
-                    "You don't have enough Haki, you need " +
                     (award.karma - haki).toString() +
-                    " to unlock the award."
+                    " out of " +
+                    award.karma.toString() +
+                    " Haki left"
                   }
                   fontSize="xs"
                 >
