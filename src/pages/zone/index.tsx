@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {
-  Grid,
-  GridItem,
-  Stack,
-  Heading,
-  Text,
-  Link,
-  Flex,
-} from "@chakra-ui/react";
+import { Grid, GridItem, Stack, Heading } from "@chakra-ui/react";
 import UserHero from "~/components/UserHero";
 import { api } from "~/utils/api";
 import { getSession, useSession } from "next-auth/react";
 import LeaderboardTable from "~/components/LeaderboardTable";
 import Awards from "~/components/Awards";
 import Footer from "~/components/Footer";
+import Header from "~/components/Header";
 import Head from "next/head";
 import type { GetSessionParams } from "next-auth/react";
 
@@ -74,33 +67,7 @@ const Zone = () => {
         bg="#1A202C"
       >
         <GridItem bg="#171923" rowSpan={1} colSpan={5}>
-          <Flex
-            alignItems="center"
-            justifyContent="space-between"
-            w="100%"
-            height="100%"
-            px="12"
-          >
-            <Text
-              fontSize="2xl"
-              fontWeight="bold"
-              textAlign="center"
-              px="2"
-              w={"12rem"}
-            >
-              LOGO
-            </Text>
-            <Flex
-              // width="15rem"
-              justifyContent="space-between"
-              alignItems="center"
-              fontSize="sm"
-            >
-              <Link pl="8">Profile</Link>
-              <Link pl="8">Status</Link>
-              <Link pl="8">Settings</Link>
-            </Flex>
-          </Flex>
+          <Header />
         </GridItem>
         <GridItem bg="#171923" rowSpan={12} colSpan={1} w="100%">
           <UserHero
