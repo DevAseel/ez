@@ -13,15 +13,15 @@ const Awards = ({ allAwards, haki }: AwardsParams) => {
   return (
     <Stack spacing={6}>
       <Heading as="h1" size="xl" pl="4" pt="1 " noOfLines={1}>
-        Awards 🎉
+        Week 1 Awards 🎉
       </Heading>
       <SimpleGrid
         spacing={4}
-        templateColumns="repeat(auto-fill, minmax(150px, 1fr))"
+        templateColumns="repeat(3, minmax(1rem, 1fr))"
         padding="4"
       >
         {allAwards?.map((award) => (
-          <Card key={award.id} bg="#171923">
+          <Card key={award.id} bg="#171923" size="sm">
             <CardHeader>
               <Heading size="md">{award.award}</Heading>
             </CardHeader>

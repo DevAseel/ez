@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Grid, GridItem, Stack, Heading } from "@chakra-ui/react";
+import { Grid, GridItem, Stack, Heading, Text, Link } from "@chakra-ui/react";
 import UserHero from "~/components/UserHero";
 import { api } from "~/utils/api";
 import { getSession, useSession } from "next-auth/react";
 import LeaderboardTable from "~/components/LeaderboardTable";
 import Awards from "~/components/Awards";
+import Footer from "~/components/Footer";
 import Head from "next/head";
 import type { GetSessionParams } from "next-auth/react";
 
@@ -132,8 +133,8 @@ const Zone = () => {
             </GridItem>
           </Grid>
         </GridItem>
-        <GridItem pl="2" rowSpan={1} colSpan={1}>
-          Footer
+        <GridItem pl="2" rowSpan={1} colSpan={4} position="relative">
+          <Footer />
         </GridItem>
       </Grid>
     </>
