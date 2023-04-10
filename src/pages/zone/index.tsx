@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Grid, GridItem, Stack, Heading, Text, Link } from "@chakra-ui/react";
+import {
+  Grid,
+  GridItem,
+  Stack,
+  Heading,
+  Text,
+  Link,
+  Flex,
+} from "@chakra-ui/react";
 import UserHero from "~/components/UserHero";
 import { api } from "~/utils/api";
 import { getSession, useSession } from "next-auth/react";
@@ -65,8 +73,34 @@ const Zone = () => {
         fontWeight="bold"
         bg="#1A202C"
       >
-        <GridItem pl="2" bg="#171923" rowSpan={1} colSpan={5}>
-          Header
+        <GridItem bg="#171923" rowSpan={1} colSpan={5}>
+          <Flex
+            alignItems="center"
+            justifyContent="space-between"
+            w="100%"
+            height="100%"
+            px="12"
+          >
+            <Text
+              fontSize="2xl"
+              fontWeight="bold"
+              textAlign="center"
+              px="2"
+              w={"12rem"}
+            >
+              LOGO
+            </Text>
+            <Flex
+              // width="15rem"
+              justifyContent="space-between"
+              alignItems="center"
+              fontSize="sm"
+            >
+              <Link pl="8">Profile</Link>
+              <Link pl="8">Status</Link>
+              <Link pl="8">Settings</Link>
+            </Flex>
+          </Flex>
         </GridItem>
         <GridItem bg="#171923" rowSpan={12} colSpan={1} w="100%">
           <UserHero
