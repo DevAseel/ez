@@ -10,7 +10,7 @@ type LeaderboardTable = {
 const LeaderboardTable = ({ allPoints }: LeaderboardTable) => {
   return (
     <Stack spacing={6}>
-      <Heading as="h1" size="md" pl="4" pt="1" noOfLines={1}>
+      <Heading as="h1" size="md" pl="4" py="2" noOfLines={1}>
         Leaderboard 🚀
       </Heading>
       <TableContainer>

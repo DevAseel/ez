@@ -24,14 +24,14 @@ const Status = ({ allStatus }: StatusParams) => {
   return (
     <>
       <Flex bg="#171923" w="100%" pb="1" position="sticky" zIndex="99" top="0">
-        <Heading as="h1" size="md" pl="4" py="1" noOfLines={1}>
+        <Heading as="h1" size="md" pl="4" py="2" noOfLines={1}>
           Status Updates 🔥
         </Heading>
       </Flex>
       <Stack spacing={2} pt={4} pl={4} pr={4}>
         <Card w="100%" alignSelf="start" bgColor="transparent" shadow="none">
           <Grid
-            templateRows="repeat(2, 1fr)"
+            templateRows="repeat(1, 1fr)"
             templateColumns="repeat(2, 1fr)"
             gap={4}
           >
