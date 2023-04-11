@@ -41,7 +41,7 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Tooltip label="Points, life time points" fontSize="xs">
+            <Tooltip label="Points" fontSize="xs">
               <LocalFireDepartmentIcon fontSize="small" />
             </Tooltip>
 
@@ -53,7 +53,7 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
             >
               {pointsData?.points}
             </Badge>
-            <Tooltip label="Karma, used to claim rewards" fontSize="xs">
+            <Tooltip label="Karma" fontSize="xs">
               <WhatshotIcon fontSize="small" />
             </Tooltip>
 
@@ -65,7 +65,12 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
             >
               {haki}
             </Badge>
-            <Tooltip hasArrow label={statusData?.status} fontSize="xs">
+            <Tooltip
+              hasArrow
+              label={statusData?.status}
+              fontSize="xs"
+              fontStyle="italic"
+            >
               <Badge
                 bg="#1A202C"
                 size="sm"
