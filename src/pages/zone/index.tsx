@@ -7,6 +7,7 @@ import LeaderboardTable from "~/components/LeaderboardTable";
 import Awards from "~/components/Awards";
 import Footer from "~/components/Footer";
 import Header from "~/components/Header";
+import Status from "~/components/Status";
 import Head from "next/head";
 import type { GetSessionParams } from "next-auth/react";
 
@@ -17,6 +18,14 @@ const Zone = () => {
     api.awards.getAll.useQuery(undefined, {
       enabled: sessionData?.user !== undefined,
     });
+
+  const {
+    data: allStatus,
+    refetch: refetchAllStatus,
+    isLoading: isAllStatusLoading,
+  } = api.status.getAll.useQuery(undefined, {
+    enabled: sessionData?.user !== undefined,
+  });
   const {
     data: allPoints,
     refetch: refetchAllPoints,
@@ -115,12 +124,9 @@ const Zone = () => {
               rowSpan={1}
               colSpan={1}
               borderRadius="md"
+              overflowY="scroll"
             >
-              <Stack spacing={6}>
-                <Heading as="h1" size="xl" pl="4" pt="1 " noOfLines={1}>
-                  Status Updates 🔥
-                </Heading>
-              </Stack>
+              <Status allStatus={allStatus} />
             </GridItem>
             <GridItem
               w="100%"
