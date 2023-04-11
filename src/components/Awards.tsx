@@ -12,7 +12,7 @@ type AwardsParams = {
 const Awards = ({ allAwards, haki }: AwardsParams) => {
   return (
     <Stack spacing={6}>
-      <Heading as="h1" size="xl" pl="4" pt="1 " noOfLines={1}>
+      <Heading as="h1" size="md" pl="4" pt="1 " noOfLines={1}>
         Week 1 Awards 🎉
       </Heading>
       <SimpleGrid
@@ -23,9 +23,9 @@ const Awards = ({ allAwards, haki }: AwardsParams) => {
         {allAwards?.map((award) => (
           <Card key={award.id} bg="#171923" size="sm">
             <CardHeader>
-              <Heading size="md">{award.award}</Heading>
+              <Heading size="sm">{award.award}</Heading>
             </CardHeader>
-            <CardBody fontSize="7xl" textAlign="center">
+            <CardBody fontSize="5xl" textAlign="center">
               {award.emoji}
             </CardBody>
             <CardFooter>

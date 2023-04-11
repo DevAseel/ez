@@ -10,7 +10,7 @@ type LeaderboardTable = {
 const LeaderboardTable = ({ allPoints }: LeaderboardTable) => {
   return (
     <Stack spacing={6}>
-      <Heading as="h1" size="xl" pl="4" py="1" noOfLines={1}>
+      <Heading as="h1" size="md" pl="4" pt="1" noOfLines={1}>
         Leaderboard 🚀
       </Heading>
       <TableContainer>
@@ -25,11 +25,13 @@ const LeaderboardTable = ({ allPoints }: LeaderboardTable) => {
           </TableCaption>
           <Thead>
             <Tr>
-              <Th textAlign="center" color="#A0AEC0">
+              <Th fontSize="xs" textAlign="center" color="#A0AEC0">
                 Rank
               </Th>
-              <Th color="#A0AEC0">User</Th>
-              <Th color="#A0AEC0" isNumeric>
+              <Th fontSize="xs" color="#A0AEC0">
+                User
+              </Th>
+              <Th fontSize="xs" color="#A0AEC0" isNumeric>
                 Points
               </Th>
             </Tr>
@@ -37,13 +39,13 @@ const LeaderboardTable = ({ allPoints }: LeaderboardTable) => {
           <Tbody>
             {allPoints?.map((user, index) => (
               <Tr key={index}>
-                <Td color="#A0AEC0" textAlign="center">
+                <Td color="#A0AEC0" textAlign="center" fontSize="xs">
                   {index + 1}
                 </Td>
-                <Td textTransform="capitalize" color="teal.400">
+                <Td textTransform="capitalize" color="teal.400" fontSize="xs">
                   {user.userName}
                 </Td>
-                <Td isNumeric color="teal.400">
+                <Td isNumeric color="teal.400" fontSize="xs">
                   {user.points}
                 </Td>
               </Tr>

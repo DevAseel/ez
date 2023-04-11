@@ -102,7 +102,7 @@ const Zone = () => {
               borderRadius="md"
             >
               <Stack spacing={6}>
-                <Heading as="h1" size="xl" pl="4" pt="1 " noOfLines={1}>
+                <Heading as="h1" size="md" pl="4" pt="1 " noOfLines={1}>
                   Feed ✨
                 </Heading>
               </Stack>
