@@ -44,7 +44,10 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
               {sessionData?.user.name}
             </Text>
             <Tooltip label="logout" placement="top">
-              <Logout onClick={onOpen} style={{ fontSize: "1rem" }} />
+              <Logout
+                onClick={onOpen}
+                style={{ fontSize: "12px", cursor: "pointer" }}
+              />
             </Tooltip>
           </Stack>
           <Badge
@@ -58,7 +61,10 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
             justifyContent="space-between"
           >
             <Tooltip label="Points" fontSize="xs">
-              <LocalFireDepartmentIcon fontSize="small" />
+              <LocalFireDepartmentIcon
+                fontSize="small"
+                style={{ cursor: "pointer" }}
+              />
             </Tooltip>
 
             <Badge
@@ -67,10 +73,10 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
               colorScheme="white"
               textAlign="center"
             >
-              {pointsData?.points}
+              {pointsData ? pointsData?.points : 0}
             </Badge>
             <Tooltip label="Karma" fontSize="xs">
-              <WhatshotIcon fontSize="small" />
+              <WhatshotIcon fontSize="small" style={{ cursor: "pointer" }} />
             </Tooltip>
 
             <Badge
@@ -83,7 +89,11 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
             </Badge>
             <Tooltip
               hasArrow
-              label={statusData?.status}
+              label={
+                statusData
+                  ? statusData?.status
+                  : "click to add your first status"
+              }
               fontSize="xs"
               fontStyle="italic"
             >
