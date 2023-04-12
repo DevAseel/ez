@@ -15,7 +15,15 @@ export const statusRouter = createTRPCRouter({
   }),
 
   addNew: protectedProcedure
-    .input(z.object({ status: z.string(), userName: z.string() }))
+    .input(
+      z.object({
+        status: z.string(),
+        userName: z.string(),
+        emoji: z.string(),
+        hours: z.number(),
+        mins: z.number(),
+      })
+    )
     .mutation(async ({ ctx, input }) => {
       try {
         await ctx.prisma.status.create({
@@ -24,6 +32,9 @@ export const statusRouter = createTRPCRouter({
             status: input.status,
             userName: input.userName,
             image: ctx.session.user.image,
+            emoji: input.emoji,
+            hours: input.hours,
+            mins: input.mins,
           },
         });
       } catch (error) {

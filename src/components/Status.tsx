@@ -70,7 +70,7 @@ const Status = ({ allStatus }: StatusParams) => {
                         top="10%"
                         right="-10%"
                       >
-                        🚀
+                        {status.emoji}
                       </Tag>
                     </Stack>
                   </Flex>
