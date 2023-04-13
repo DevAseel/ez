@@ -245,7 +245,7 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
                 style={{ backgroundColor: "teal" }}
                 onClick={handleEmojiSelector}
               >
-                {selectedEmoji ? selectedEmoji : "🤚🏾"}
+                {selectedEmoji ? selectedEmoji : "✋"}
               </Button>
 
               <Input

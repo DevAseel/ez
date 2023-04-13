@@ -62,16 +62,16 @@ const Status = ({ allStatus }: StatusParams) => {
                             : "https://cdn.discordapp.com/embed/avatars/2.png"
                         }
                       />
-                      <Tag
-                        colorScheme="gray"
-                        size="xs"
+                      <Flex
+                        // colorScheme="gray"
+                        // size="xs"
                         borderRadius="full"
                         position="absolute"
                         top="10%"
                         right="-10%"
                       >
                         {status.emoji}
-                      </Tag>
+                      </Flex>
                     </Stack>
                   </Flex>
 

@@ -84,5 +84,5 @@ model Awards {
     id            String    @id @default(cuid())
     award         String    
     emoji         String
-    karma         Int 
+    haki          Int 
 }

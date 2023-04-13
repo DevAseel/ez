@@ -5,7 +5,7 @@ export const awardsRouter = createTRPCRouter({
     return ctx.prisma.awards.findMany({
       take: 3,
       orderBy: {
-        karma: "asc",
+        haki: "asc",
       },
     });
   }),

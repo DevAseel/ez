@@ -29,23 +29,23 @@ const Awards = ({ allAwards, haki }: AwardsParams) => {
               {award.emoji}
             </CardBody>
             <CardFooter>
-              {haki >= award.karma ? (
+              {haki >= award.haki ? (
                 <Button color="teal.400" colorScheme="teal">
-                  {award.karma}
+                  {award.haki}
                   <WhatshotIcon />
                 </Button>
               ) : (
                 <Tooltip
                   label={
-                    (award.karma - haki).toString() +
+                    (award.haki - haki).toString() +
                     " out of " +
-                    award.karma.toString() +
+                    award.haki.toString() +
                     " Haki left"
                   }
                   fontSize="xs"
                 >
                   <Button isDisabled color="teal.400" colorScheme="teal">
-                    {award.karma}
+                    {award.haki}
                     <WhatshotIcon />
                   </Button>
                 </Tooltip>

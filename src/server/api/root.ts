@@ -1,7 +1,7 @@
 import { pointsRouter } from "./routers/points";
 import { createTRPCRouter } from "~/server/api/trpc";
 import { statusRouter } from "~/server/api/routers/status";
-import { awardsRouter } from "./routers/rewards";
+import { awardsRouter } from "./routers/awards";
 
 /**
  * This is the primary router for your server.
