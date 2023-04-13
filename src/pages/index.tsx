@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut, useSession, getSession } from "next-auth/react";
+import type { GetSessionParams } from "next-auth/react";
 
 const Home: NextPage = () => {
   return (
@@ -37,3 +38,20 @@ const AuthShowcase: React.FC = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
+  const session = await getSession(context);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/zone",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+}
