@@ -203,7 +203,7 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
                   size="xs"
                   onClick={onStatusModalOpen}
                 >
-                  {statusData?.emoji}
+                  {statusData?.emoji ? statusData?.emoji : "💬"}
                 </Button>
               </Badge>
             </Tooltip>
