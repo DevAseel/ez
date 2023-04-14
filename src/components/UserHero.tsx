@@ -90,7 +90,7 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
       postStatus.mutate({
         status: userUpdatedStatus,
         userName: sessionData.user.name,
-        emoji: selectedEmoji ? selectedEmoji : "✋",
+        emoji: selectedEmoji ? selectedEmoji : "💬",
         hours: parseInt(userUpdatedStatusHours),
         mins: parseInt(userUpdatedMins),
       });
@@ -118,6 +118,20 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
     });
   };
 
+  const isUserActive = () => {
+    const currentTime = new Date();
+    if (
+      statusData?.createdAt &&
+      currentTime.getTime() - statusData?.createdAt.getTime() >=
+        7 * 60 * 60 * 100
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  console.log(isUserActive());
   return (
     <>
       <Stack direction="row" spacing={4} justifyContent="center" paddingTop="8">
@@ -129,7 +143,15 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
               : "https://cdn.discordapp.com/embed/avatars/2.png"
           }
         >
-          <AvatarBadge borderColor="#1D4044" boxSize="1.25em" bg="green.500" />
+          {isUserActive() ? (
+            <AvatarBadge
+              borderColor="#1D4044"
+              boxSize="1.25em"
+              bg="green.500"
+            />
+          ) : (
+            <AvatarBadge borderColor="#1D4044" boxSize="1.25em" bg="red.500" />
+          )}
         </Avatar>
         <Stack direction="column" minW="8rem">
           <Stack direction="row">
@@ -244,7 +266,11 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
                 style={{ backgroundColor: "teal" }}
                 onClick={handleEmojiSelector}
               >
-                {selectedEmoji ? selectedEmoji : "✋"}
+                {selectedEmoji
+                  ? selectedEmoji
+                  : statusData?.emoji
+                  ? statusData?.emoji
+                  : "💬"}
               </Button>
 
               <Input

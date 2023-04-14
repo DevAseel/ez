@@ -8,7 +8,6 @@ import {
   Text,
   Card,
   CardBody,
-  Tag,
   Grid,
 } from "@chakra-ui/react";
 import { Status } from "@prisma/client";
@@ -62,22 +61,12 @@ const Status = ({ allStatus }: StatusParams) => {
                             : "https://cdn.discordapp.com/embed/avatars/2.png"
                         }
                       />
-                      <Flex
-                        // colorScheme="gray"
-                        // size="xs"
-                        borderRadius="full"
-                        position="absolute"
-                        top="10%"
-                        right="-10%"
-                      >
-                        {status.emoji}
-                      </Flex>
                     </Stack>
                   </Flex>
 
                   <Flex direction="column" w="100%" pl="2">
                     <Text fontSize="0.9rem" fontWeight="normal">
-                      {status.userName}
+                      {status.userName} {status.emoji}
                     </Text>
                     <Code
                       colorScheme="teal"
