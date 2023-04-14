@@ -252,6 +252,7 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
         onClose={onStatusModalClose}
         isOpen={isStatusModalOpen}
         motionPreset="slideInBottom"
+        blockScrollOnMount={false}
       >
         <ModalOverlay />
         <ModalContent bgColor="#171923">
@@ -265,8 +266,13 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
               marginBottom="4"
             >
               {isEmojiSelectorOpen && (
-                <Flex position="absolute" zIndex="99" top="0" left="12%">
-                  <Picker data={data} onEmojiSelect={logSelectedEmojiName} />
+                <Flex position="absolute" zIndex="14500" top="0" left="12%">
+                  <Picker
+                    data={data}
+                    onEmojiSelect={logSelectedEmojiName}
+                    autoFocus={true}
+                    onClickOutside={handleEmojiSelector}
+                  />
                 </Flex>
               )}
               <Button
