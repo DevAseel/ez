@@ -121,9 +121,18 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
   const isUserActive = () => {
     const currentTime = new Date();
     if (
+      statusData?.hours !== 0 &&
       statusData?.createdAt &&
-      currentTime.getTime() - statusData?.createdAt.getTime() >=
-        7 * 60 * 60 * 100
+      currentTime.getTime() >=
+        statusData?.createdAt.getTime() +
+          statusData?.hours * statusData?.mins * 60 * 1000
+    ) {
+      return false;
+    }
+    if (
+      statusData?.createdAt &&
+      currentTime.getTime() >=
+        statusData?.createdAt.getTime() + statusData?.mins * 60 * 1000
     ) {
       return false;
     } else {
@@ -189,7 +198,7 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
             >
               {pointsData ? pointsData?.points : 0}
             </Badge>
-            <Tooltip label="Karma" fontSize="xs">
+            <Tooltip label="Haki" fontSize="xs">
               <WhatshotIcon fontSize="small" style={{ cursor: "pointer" }} />
             </Tooltip>
 
