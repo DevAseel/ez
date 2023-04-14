@@ -78,7 +78,7 @@ const Zone = () => {
           <GridItem rowSpan={10} colSpan={4}>
             <Grid
               templateRows="repeat(2, 1fr)"
-              templateColumns="repeat(2, 1fr)"
+              templateColumns="repeat(4, 1fr)"
               gap={4}
               h="85vh"
               padding="4"
@@ -88,7 +88,7 @@ const Zone = () => {
                 h="100%"
                 bg="teal.800"
                 rowSpan={1}
-                colSpan={1}
+                colSpan={2}
                 borderRadius="md"
               >
                 <Stack spacing={6}>
@@ -102,7 +102,7 @@ const Zone = () => {
                 h="100%"
                 bg="#171923"
                 rowSpan={1}
-                colSpan={1}
+                colSpan={2}
                 borderRadius="md"
               >
                 <LeaderboardTable allPoints={allPoints} />
@@ -112,7 +112,7 @@ const Zone = () => {
                 h="100%"
                 bg="#171923"
                 rowSpan={1}
-                colSpan={1}
+                colSpan={2}
                 borderRadius="md"
                 overflowY="scroll"
               >
@@ -122,6 +122,18 @@ const Zone = () => {
                 w="100%"
                 h="100%"
                 bg="teal.800"
+                rowSpan={1}
+                colSpan={1}
+                borderRadius="md"
+              >
+                <Heading as="h1" size="md" pl="4" py="2" noOfLines={1}>
+                  Streaks 🎯
+                </Heading>
+              </GridItem>
+              <GridItem
+                w="100%"
+                h="100%"
+                bg="#171923"
                 rowSpan={1}
                 colSpan={1}
                 borderRadius="md"
