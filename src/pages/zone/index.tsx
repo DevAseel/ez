@@ -14,39 +14,22 @@ import type { GetSessionParams } from "next-auth/react";
 const Zone = () => {
   const { data: sessionData } = useSession();
 
-  const { data: allAwards, isLoading: isAllAwardsLoading } =
-    api.awards.getAll.useQuery(undefined, {
-      enabled: sessionData?.user !== undefined,
-    });
-
-  const {
-    data: allStatus,
-    refetch: refetchAllStatus,
-    isLoading: isAllStatusLoading,
-  } = api.status.getAll.useQuery(undefined, {
-    enabled: sessionData?.user !== undefined,
-  });
-  const {
-    data: allPoints,
-    refetch: refetchAllPoints,
-    isLoading: isAllPointsLoading,
-  } = api.points.getAll.useQuery(undefined, {
+  const { data: allAwards } = api.awards.getAll.useQuery(undefined, {
     enabled: sessionData?.user !== undefined,
   });
 
-  const {
-    data: pointsData,
-    refetch: refetchPoints,
-    isLoading: isPointsLoading,
-  } = api.points.getLatest.useQuery(undefined, {
+  const { data: allStatus } = api.status.getAll.useQuery(undefined, {
+    enabled: sessionData?.user !== undefined,
+  });
+  const { data: allPoints } = api.points.getAll.useQuery(undefined, {
     enabled: sessionData?.user !== undefined,
   });
 
-  const {
-    data: statusData,
-    refetch: refetchStatus,
-    isLoading: isStatusLoading,
-  } = api.status.getLatest.useQuery(undefined, {
+  const { data: pointsData } = api.points.getLatest.useQuery(undefined, {
+    enabled: sessionData?.user !== undefined,
+  });
+
+  const { data: statusData } = api.status.getLatest.useQuery(undefined, {
     enabled: sessionData?.user !== undefined,
   });
 

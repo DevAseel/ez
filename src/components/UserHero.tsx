@@ -43,27 +43,25 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
   } = useDisclosure();
 
   const [isEmojiSelectorOpen, setIsEmojiSelectorOpen] = useState(false);
+  const [selectedEmoji, setSelectedEmoji] = useState("");
+  const [userUpdatedStatus, setUserUpdatedStatus] = useState("");
+  const [userUpdatedStatusHours, setUserUpdatedStatusHours] = useState("");
+  const [userUpdatedMins, setUserUpdatedMins] = useState("");
 
   const handleEmojiSelector = () => {
     setIsEmojiSelectorOpen(!isEmojiSelectorOpen);
   };
-  const [selectedEmoji, setSelectedEmoji] = useState("");
 
   const logSelectedEmojiName = (emoji: emojiData) => {
     setSelectedEmoji(emoji.native);
     setIsEmojiSelectorOpen(!isEmojiSelectorOpen);
   };
 
-  const [userUpdatedStatus, setUserUpdatedStatus] = useState("");
-
   const handleUserUpdatingStatus = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setUserUpdatedStatus(event.target.value);
   };
-
-  const [userUpdatedStatusHours, setUserUpdatedStatusHours] = useState("");
-  const [userUpdatedMins, setUserUpdatedMins] = useState("");
 
   const handleUserUpdatingHours = (event: ChangeEvent<HTMLSelectElement>) => {
     setUserUpdatedStatusHours(event.target.value);
@@ -81,10 +79,11 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
     },
   });
   const postPoints = api.points.addNew.useMutation({
-    // onSuccess: async () => {
-    //   await refetchPoints(), await refetchAllPoints();
-    // },
+    onSuccess: async () => {
+      await utils.points.invalidate();
+    },
   });
+
   const toast = useToast();
   const handleStatusUpdateSubmission = () => {
     if (sessionData?.user.name) {
