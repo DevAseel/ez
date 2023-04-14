@@ -1,4 +1,5 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
+import { z } from "zod";
 
 export const awardsRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
@@ -9,4 +10,17 @@ export const awardsRouter = createTRPCRouter({
       },
     });
   }),
+
+  update: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(({ ctx, input }) => {
+      return ctx.prisma.awards.update({
+        where: { id: input.id },
+        data: {
+          isClaimed: true,
+          awardedUser: ctx.session.user.name,
+          awardedUserId: ctx.session.user.id,
+        },
+      });
+    }),
 });

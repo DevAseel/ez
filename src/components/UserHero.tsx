@@ -131,7 +131,6 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
     }
   };
 
-  console.log(isUserActive());
   return (
     <>
       <Stack direction="row" spacing={4} justifyContent="center" paddingTop="8">

@@ -85,4 +85,7 @@ model Awards {
     award         String    
     emoji         String
     haki          Int 
+    isClaimed     Boolean  @default(false)
+    awardedUser   String?  
+    awardedUserId String? 
 }
