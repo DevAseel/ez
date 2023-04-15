@@ -37,7 +37,7 @@ const LeaderboardTable = ({ allPoints }: LeaderboardTable) => {
             </Tr>
           </Thead>
           <Tbody>
-            {allPoints?.map((user, index) => (
+            {allPoints?.slice(0, 3).map((user, index) => (
               <Tr key={index}>
                 <Td color="#A0AEC0" textAlign="center" fontSize="xs">
                   {index + 1}

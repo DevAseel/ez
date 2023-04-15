@@ -38,7 +38,6 @@ const Status = ({ allStatus }: StatusParams) => {
               <CardBody
                 key={index}
                 position="relative"
-                // bgColor={index % 2 === 0 ? "#1A202C" : "teal.800"}
                 bgColor={pattern[index % pattern.length]}
                 borderRadius="md"
                 marginBottom="2"
