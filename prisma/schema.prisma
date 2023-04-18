@@ -47,6 +47,7 @@ model User {
     sessions      Session[]
     status        Status[]
     points        Points[]
+    userSettings   UserSettings[]
 }
 
 model VerificationToken {
@@ -88,4 +89,14 @@ model Awards {
     isClaimed     Boolean  @default(false)
     awardedUser   String?  
     awardedUserId String? 
+}
+
+model UserSettings {
+    userId        String  @id
+    bio           String
+    workingHours  String
+    timeZone      String
+    location      String
+    githubAccout  String     
+    user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
