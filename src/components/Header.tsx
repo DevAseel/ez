@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text, Link as UILink } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
 const Header = () => {
@@ -17,16 +17,16 @@ const Header = () => {
           fontWeight="bold"
           textAlign="center"
           px="2"
-          w={"12rem"}
+          w="12rem"
         >
-          LOGO
+          EZ
         </Text>
       </Link>
       <Flex justifyContent="space-between" alignItems="center" fontSize="sm">
-        <UILink pl="8">Profile</UILink>
-        <UILink pl="8">Status</UILink>
+        <Text pl="8">Profile</Text>
+        <Text pl="8">Status</Text>
         <Link href="/settings">
-          <UILink pl="8">Settings</UILink>
+          <Text pl="8">Settings</Text>
         </Link>
       </Flex>
     </Flex>

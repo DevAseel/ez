@@ -20,9 +20,22 @@ import { timezones, type Timezone } from "~/utils/timezones";
 
 const Settings = () => {
   const tz: Timezone[] = timezones;
+  const handleSubmit = (event: React.FormEvent<EventTarget>) => {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const data = Object.fromEntries(formData.entries());
+    console.log(data);
+  };
   return (
     <Main>
-      <VStack padding="4" width="80%" paddingTop="8" align="start">
+      <VStack
+        padding="4"
+        width="80%"
+        paddingTop="8"
+        align="start"
+        as="form"
+        onSubmit={handleSubmit}
+      >
         <Breadcrumb
           spacing="6px"
           separator={<ChevronRightIcon style={{ fontSize: "0.8rem" }} />}
@@ -57,6 +70,7 @@ const Settings = () => {
             placeholder="tell us about yourself"
             borderColor="#2D3748"
             fontWeight="light"
+            name="bio"
           />
 
           <Text fontSize="sm" pb="2" fontWeight="bold" paddingTop="4">
@@ -67,6 +81,7 @@ const Settings = () => {
             fontWeight="light"
             borderColor="#2D3748"
             width="max-width"
+            name="workingHours"
           />
           <Text fontSize="sm" pb="2" fontWeight="bold" paddingTop="4">
             Timezone
@@ -76,6 +91,7 @@ const Settings = () => {
             borderColor="#2D3748"
             fontWeight="light"
             color="#718096"
+            name="timeZone"
           >
             {tz.map((zone, index) => {
               return (
@@ -93,6 +109,7 @@ const Settings = () => {
             fontWeight="light"
             borderColor="#2D3748"
             width="max-width"
+            name="location"
           />
 
           <Text fontSize="sm" pb="2" fontWeight="bold" paddingTop="4">
@@ -112,6 +129,7 @@ const Settings = () => {
               placeholder="your github username"
               fontWeight="light"
               borderColor="#2D3748"
+              name="githubAccount"
             />
           </InputGroup>
           <Button
@@ -120,6 +138,7 @@ const Settings = () => {
             variant="outline"
             colorScheme="teal"
             width="20%"
+            type="submit"
           >
             Update Profile
           </Button>

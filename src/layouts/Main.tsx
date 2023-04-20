@@ -10,6 +10,7 @@ import Loading from "~/components/Loading";
 type MainLayoutProps = {
   children: React.ReactNode;
 };
+
 const Main = ({ children }: MainLayoutProps) => {
   const { data: sessionData } = useSession();
   const { data: pointsData } = api.points.getLatest.useQuery(undefined, {

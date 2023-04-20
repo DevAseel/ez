@@ -92,7 +92,7 @@ model Awards {
 }
 
 model UserSettings {
-    userId        String  @id
+    userId        String  @id @unique() 
     bio           String
     workingHours  String
     timeZone      String
