@@ -14,12 +14,11 @@ export const settingsRouter = createTRPCRouter({
   addUserSettings: protectedProcedure
     .input(
       z.object({
-        userId: z.string(),
         bio: z.string(),
         workingHours: z.string(),
         timeZone: z.string(),
         location: z.string(),
-        githubAccout: z.string(),
+        githubAccount: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -31,7 +30,7 @@ export const settingsRouter = createTRPCRouter({
             workingHours: input.workingHours,
             timeZone: input.timeZone,
             location: input.location,
-            githubAccout: input.githubAccout,
+            githubAccount: input.githubAccount,
           },
         });
       } catch (error) {
@@ -42,12 +41,11 @@ export const settingsRouter = createTRPCRouter({
   updateUserSettings: protectedProcedure
     .input(
       z.object({
-        userId: z.string(),
         bio: z.string(),
         workingHours: z.string(),
         timeZone: z.string(),
         location: z.string(),
-        githubAccout: z.string(),
+        githubAccount: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -61,7 +59,7 @@ export const settingsRouter = createTRPCRouter({
             workingHours: input.workingHours,
             timeZone: input.timeZone,
             location: input.location,
-            githubAccout: input.githubAccout,
+            githubAccount: input.githubAccount,
           },
         });
       } catch (error) {

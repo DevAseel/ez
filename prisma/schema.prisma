@@ -97,6 +97,6 @@ model UserSettings {
     workingHours  String
     timeZone      String
     location      String
-    githubAccout  String     
+    githubAccount  String     
     user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

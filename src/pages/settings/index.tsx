@@ -17,14 +17,57 @@ import {
 } from "@chakra-ui/react";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { timezones, type Timezone } from "~/utils/timezones";
+import { api } from "~/utils/api";
+import { getSession, useSession } from "next-auth/react";
+import type { GetSessionParams } from "next-auth/react";
 
+type userInput = {
+  bio: string;
+  workingHours: string;
+  timeZone: string;
+  location: string;
+  githubAccount: string;
+};
 const Settings = () => {
   const tz: Timezone[] = timezones;
+  const utils = api.useContext();
+  const { data: sessionData } = useSession();
+
+  const { data: userSettings } = api.settings.userSettings.useQuery(undefined, {
+    enabled: sessionData?.user !== undefined,
+  });
+  const updateUserSettings = api.settings.updateUserSettings.useMutation({
+    onSuccess: async () => {
+      await utils.settings.invalidate();
+    },
+  });
+
+  const createUserSettings = api.settings.addUserSettings.useMutation({
+    onSuccess: async () => {
+      await utils.settings.invalidate();
+    },
+  });
+
   const handleSubmit = (event: React.FormEvent<EventTarget>) => {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
-    const data = Object.fromEntries(formData.entries());
-    console.log(data);
+    const data = Object.fromEntries(formData.entries()) as userInput;
+    if (!userSettings) {
+      createUserSettings.mutate({
+        bio: data.bio,
+        workingHours: data.workingHours,
+        timeZone: data.timeZone,
+        location: data.location,
+        githubAccount: data.githubAccount,
+      });
+    }
+    updateUserSettings.mutate({
+      bio: data.bio,
+      workingHours: data.workingHours,
+      timeZone: data.timeZone,
+      location: data.location,
+      githubAccount: data.githubAccount,
+    });
   };
   return (
     <Main>
@@ -148,4 +191,20 @@ const Settings = () => {
   );
 };
 
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
+}
 export default Settings;
