@@ -45,7 +45,9 @@ const Main = ({ children }: MainLayoutProps) => {
           bg="#1A202C"
         >
           <GridItem bg="#171923" rowSpan={1} colSpan={5}>
-            <Header />
+            <Header
+              userId={sessionData?.user.id ? sessionData?.user.id : "#"}
+            />
           </GridItem>
           <GridItem bg="#171923" rowSpan={12} colSpan={1} w="100%">
             <UserHero

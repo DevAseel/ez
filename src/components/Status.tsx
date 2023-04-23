@@ -11,7 +11,8 @@ import {
   Grid,
 } from "@chakra-ui/react";
 import { Status } from "@prisma/client";
-
+import NextLink from "next/link";
+import { Link } from "@chakra-ui/react";
 type StatusParams = {
   allStatus: Status[] | undefined;
 };
@@ -65,8 +66,12 @@ const Status = ({ allStatus }: StatusParams) => {
 
                   <Flex direction="column" w="100%" pl="2">
                     <Text fontSize="0.9rem" fontWeight="normal">
-                      {status.userName} {status.emoji}
+                      <Link as={NextLink} href={`/profile/${status.userId}`}>
+                        {status.userName}
+                      </Link>
+                      {} {status.emoji}
                     </Text>
+
                     <Code
                       colorScheme="teal"
                       w="100%"

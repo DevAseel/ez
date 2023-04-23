@@ -12,6 +12,8 @@ import { Divider, Center, Button, ModalCloseButton } from "@chakra-ui/react";
 import { ModalHeader, ModalFooter, ModalBody } from "@chakra-ui/react";
 import { ModalContent, useDisclosure, Tooltip, Input } from "@chakra-ui/react";
 import { api } from "~/utils/api";
+import NextLink from "next/link";
+import { Link } from "@chakra-ui/react";
 
 type UserHeroProps = {
   pointsData: Points | null | undefined;
@@ -167,9 +169,16 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
         </Avatar>
         <Stack direction="column" minW="8rem">
           <Stack direction="row">
-            <Text fontSize="sm" fontWeight="bold">
+            <Link
+              as={NextLink}
+              href={
+                sessionData?.user.id ? `/profile/${sessionData?.user.id}` : "#"
+              }
+              fontSize="sm"
+              fontWeight="bold"
+            >
               {sessionData?.user.name}
-            </Text>
+            </Link>
             <Tooltip label="logout" placement="top">
               <Logout
                 onClick={onLogoutModalOpen}

@@ -1,8 +1,12 @@
 import React from "react";
 import { Flex, Text } from "@chakra-ui/react";
-import Link from "next/link";
+import NextLink from "next/link";
+import { Link } from "@chakra-ui/react";
 
-const Header = () => {
+type HeaderProps = {
+  userId: string;
+};
+const Header = ({ userId }: HeaderProps) => {
   return (
     <Flex
       alignItems="center"
@@ -23,10 +27,14 @@ const Header = () => {
         </Text>
       </Link>
       <Flex justifyContent="space-between" alignItems="center" fontSize="sm">
-        <Text pl="8">Profile</Text>
-        <Text pl="8">Status</Text>
-        <Link href="/profile/settings">
-          <Text pl="8">Settings</Text>
+        <Link pl="8" as={NextLink} href={`/profile/${userId}`}>
+          Profile
+        </Link>
+        <Link pl="8" as={NextLink} href={`#`}>
+          Status
+        </Link>
+        <Link pl="8" as={NextLink} href={`/profile/settings`}>
+          Settings
         </Link>
       </Flex>
     </Flex>

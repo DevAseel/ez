@@ -2,7 +2,8 @@ import React from "react";
 import { Table, Thead, Tbody, Tr, Th, Stack } from "@chakra-ui/react";
 import { Td, TableCaption, TableContainer, Heading } from "@chakra-ui/react";
 import type { Points } from "@prisma/client";
-
+import NextLink from "next/link";
+import { Link } from "@chakra-ui/react";
 type LeaderboardTable = {
   allPoints: Points[] | undefined;
 };
@@ -43,7 +44,9 @@ const LeaderboardTable = ({ allPoints }: LeaderboardTable) => {
                   {index + 1}
                 </Td>
                 <Td textTransform="capitalize" color="teal.400" fontSize="xs">
-                  {user.userName}
+                  <Link as={NextLink} href={`/profile/${user.userId}`}>
+                    {user.userName}
+                  </Link>
                 </Td>
                 <Td isNumeric color="teal.400" fontSize="xs">
                   {user.points}
