@@ -50,4 +50,25 @@ export const statusRouter = createTRPCRouter({
       },
     });
   }),
+
+  getLatestByUser: protectedProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      try {
+        return await ctx.prisma.status.findFirst({
+          where: {
+            userId: input.userId,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
 });
