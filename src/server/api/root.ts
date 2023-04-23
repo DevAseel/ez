@@ -3,7 +3,7 @@ import { createTRPCRouter } from "~/server/api/trpc";
 import { statusRouter } from "~/server/api/routers/status";
 import { awardsRouter } from "./routers/awards";
 import { settingsRouter } from "./routers/settings";
-
+import { userRouter } from "./routers/users";
 /**
  * This is the primary router for your server.
  *
@@ -14,6 +14,7 @@ export const appRouter = createTRPCRouter({
   points: pointsRouter,
   awards: awardsRouter,
   settings: settingsRouter,
+  users: userRouter,
 });
 
 // export type definition of API

@@ -90,7 +90,11 @@ const UserHero = ({ pointsData, statusData, haki }: UserHeroProps) => {
       postStatus.mutate({
         status: userUpdatedStatus,
         userName: sessionData.user.name,
-        emoji: selectedEmoji ? selectedEmoji : "💬",
+        emoji: selectedEmoji
+          ? selectedEmoji
+          : statusData?.emoji
+          ? statusData?.emoji
+          : "💬",
         hours: parseInt(userUpdatedStatusHours),
         mins: parseInt(userUpdatedMins),
       });
