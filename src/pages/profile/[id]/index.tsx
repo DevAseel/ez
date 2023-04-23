@@ -16,8 +16,7 @@ export default function UserProfile() {
 
   return (
     <Main>
-      <h1>User Profile {id}</h1>
-      <p>This is the user profile with ID {id}.</p>
+      <h1>User name: {userData?.name}</h1>
     </Main>
   );
 }

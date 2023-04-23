@@ -25,7 +25,7 @@ const Header = () => {
       <Flex justifyContent="space-between" alignItems="center" fontSize="sm">
         <Text pl="8">Profile</Text>
         <Text pl="8">Status</Text>
-        <Link href="/settings">
+        <Link href="/profile/settings">
           <Text pl="8">Settings</Text>
         </Link>
       </Flex>
