@@ -5,10 +5,10 @@ import { useSession } from "next-auth/react";
 import {
   Avatar,
   Text,
-  Flex,
   AvatarBadge,
   VStack,
-  HStack,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 export default function UserProfile() {
   const { data: sessionData } = useSession();
@@ -49,39 +49,76 @@ export default function UserProfile() {
   };
   return (
     <Profile>
-      <Flex p="4">
-        <HStack>
-          <Avatar
-            src={
-              userStatusData?.image
-                ? userStatusData?.image
-                : "https://cdn.discordapp.com/embed/avatars/2.png"
-            }
-          >
-            {isUserActive() ? (
-              <AvatarBadge
-                borderColor="#1D4044"
-                boxSize="1.25em"
-                bg="green.500"
-              />
-            ) : (
-              <AvatarBadge
-                borderColor="#1D4044"
-                boxSize="1.25em"
-                bg="red.500"
-              />
-            )}
-          </Avatar>
+      <Grid
+        h="100%"
+        templateRows="repeat(1, 1fr)"
+        templateColumns="repeat(5, 1fr)"
+        gap={4}
+        p={4}
+      >
+        <GridItem
+          rowSpan={1}
+          colSpan={1}
+          bg="gray.900"
+          padding={4}
+          rounded="md"
+        >
           <VStack>
-            <Text>{userData?.name}</Text>
-            {userStatusData?.status ? (
-              <Text fontSize="sm">{userStatusData.status}</Text>
-            ) : (
-              ""
-            )}
+            <Avatar
+              size="2xl"
+              src={
+                userStatusData?.image
+                  ? userStatusData?.image
+                  : "https://cdn.discordapp.com/embed/avatars/2.png"
+              }
+            >
+              {isUserActive() ? (
+                <AvatarBadge
+                  borderColor="#1D4044"
+                  boxSize="1.25em"
+                  bg="green.500"
+                  bottom="6%"
+                  right="6%"
+                />
+              ) : (
+                <AvatarBadge
+                  borderColor="#1D4044"
+                  boxSize="0.8em"
+                  bg="red.500"
+                  bottom="6%"
+                  right="6%"
+                />
+              )}
+            </Avatar>
+            <VStack>
+              <Text textAlign="center" width="100%">
+                {userData?.name}
+              </Text>
+              {userStatusData?.status ? (
+                <Text width="100%" fontSize="sm">
+                  {userStatusData.status}
+                </Text>
+              ) : (
+                ""
+              )}
+            </VStack>
           </VStack>
-        </HStack>
-      </Flex>
+        </GridItem>
+        <GridItem
+          rowSpan={1}
+          colSpan={2}
+          bg="gray.900"
+          padding={4}
+          rounded="md"
+        ></GridItem>
+        <GridItem
+          rowSpan={1}
+          colSpan={2}
+          bg="gray.900"
+          padding={4}
+          rounded="md"
+        ></GridItem>
+      </Grid>
     </Profile>
   );
 }
