@@ -75,7 +75,7 @@ export default function UserProfile() {
               {isUserActive() ? (
                 <AvatarBadge
                   borderColor="#1D4044"
-                  boxSize="1.25em"
+                  boxSize="0.8em"
                   bg="green.500"
                   bottom="6%"
                   right="6%"
